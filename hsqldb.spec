@@ -4,7 +4,7 @@
 
 Name:           hsqldb
 Version:        2.3.4
-Release:        1
+Release:        2
 Epoch:          1
 Summary:        HyperSQL Database Engine
 License:        BSD
