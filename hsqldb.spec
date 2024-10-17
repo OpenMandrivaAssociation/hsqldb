@@ -8,7 +8,7 @@ Release:        3
 Epoch:          1
 Summary:        HyperSQL Database Engine
 License:        BSD
-URL:            http://hsqldb.org
+URL:            https://hsqldb.org
 
 BuildArch:      noarch
 
