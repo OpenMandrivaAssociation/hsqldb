@@ -3,8 +3,8 @@
 %global pomversion 2.3.4
 
 Name:           hsqldb
-Version:        2.3.4
-Release:        3
+Version:        2.7.4
+Release:        1
 Epoch:          1
 Summary:        HyperSQL Database Engine
 License:        BSD
@@ -30,7 +30,7 @@ Patch0:         %{name}-apidocs.patch
 # Package org.hsqldb.cmdline was only compiled with java 1.5
 Patch1:         %{name}-cmdline.patch
 # Osgi-compilant manifest
-Patch2:         %{name}-2.3.4-osgi.patch
+Patch2:         %{name}-2.7.4-osgi.patch
 
 BuildRequires:  ant
 BuildRequires:  javapackages-local
@@ -110,9 +110,9 @@ chmod -R go=u-w *
 sed -i -e 's/doc-src/doc/g' build/build.xml
 sed -i -e 's|doc/apidocs|%{_javadocdir}/%{name}|g' index.html
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p2 -b .orig
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 pushd build

@@ -1,0 +1,58 @@
+--- a/build/build.xml	2026-08-02 19:20:15.062008545 +0200
++++ b/build/build.xml	2026-08-02 19:20:15.101720999 +0200
+@@ -1139,10 +1139,14 @@
+ 
+     <target name="osgi" depends="-ivy-setup, hsqldb"
+       description="Generates 'hsqldb-osgi.jar' file with OSGI properties in manifest">
++      <path id="bnd-jar.cpref">
++           <pathelement location="${bnd.jarpath}"/>
++      </path>
+       <pathconvert property="bndjar.file" refid="bnd-jar.cpref"/>
+       <!-- Purposefully not using the bndwrap task available for this purpose,
+            because the docs don't explain how to use the attributes clearly enough
+            to figure out how to use it. -->
++      <copy file="lib/hsqldb${jdk8string}.jar" tofile="lib/hsqldb${jdk8string}.prebnd.jar"/>
+       <java fork="true" dir="lib" classpath="${bndjar.file}"
+             outputproperty="out.0" errorproperty="err.0"
+             resultproperty="exec.val.0"
+@@ -1152,10 +1156,10 @@
+         <sysproperty key="hsqldb.title" value="${hsqldb.title}"/>
+         <arg value="wrap"/>
+         <arg value="--output"/>
+-        <arg value="hsqldb-osgi${jdk8string}.jar"/>
++        <arg value="hsqldb${jdk8string}.jar"/>
+         <arg value="--properties"/>
+         <arg file="build/hsqldb.bnd"/>
+-        <arg value="hsqldb${jdk8string}.jar"/>
++        <arg value="hsqldb${jdk8string}.prebnd.jar"/>
+       </java>
+       <condition property="_do-abort" value="DUMMY">
+         <not> <equals arg1="0" arg2="${exec.val.0}"/> </not>
+@@ -1165,6 +1169,6 @@
+ ${out.0}
+ JVM stderr: ---------------------------------------------------
+ ${err.0}</fail>
+-      <delete file="lib/hsqldb${jdk8string}.jar"/>
++      <delete file="lib/hsqldb${jdk8string}.prebnd.jar"/>
+     </target>
+ </project>
+
+--- a/build/antivy-setup.xml	2026-08-02 19:20:14.934685507 +0200
++++ b/build/antivy-setup.xml	2026-08-02 19:20:15.102271826 +0200
+@@ -7,9 +7,12 @@
+   <target name="ivy-setup" depends="-ivy-setup"/>
+ 
+   <target name="-ivy-setup" unless="-ivy.is.setup">
+-    <fail>An Ant target that you have invoked, directly or indirectly, has been changed
+-to reply upon Gradle.
+-Please rerun your Ant command as a Gradle command, using 'gradlew' in place of
+-'ant'.</fail>
++    <fail message="Ant property 'bnd.jarpath' required by target 'osgi'"
++           unless="bnd.jarpath"/>
++    <path id="bnd-jar.cpref">
++         <pathelement location="${bnd.jarpath}"/>
++         <!--pathelement location="/usr/share/java/aqute-bndlib.jar"/-->
++    </path>
++    <property name="-ivy.is.setup" value="true"/>
+   </target>
+ </project>

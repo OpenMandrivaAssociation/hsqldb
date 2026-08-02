@@ -1,5 +1,6 @@
-removed_sources:
-  hsqldb-2.3.1.zip: 6c5d21b7d54ac6ae23a5f5577f1e81a6301ffa32
 sources:
   hsqldb-2.3.0.pom: 84c738367b4f962ebe7771405fe2344ba2ca1381
+  hsqldb-2.3.1.zip: 6c5d21b7d54ac6ae23a5f5577f1e81a6301ffa32
   hsqldb-2.3.2.zip: be0062a00d1b2835491e593aca764298c6ddde0b
+  hsqldb-2.3.4.pom: d25d08d2d27fe3767e3e2e35ecdb734fd62b5bda
+  hsqldb-2.7.4.zip: e3dc86cee3c4acc0b9083e6f38587b2c3646fd11
